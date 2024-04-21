@@ -78,6 +78,7 @@ async def get_post(post_id: int, db: Session = Depends(get_db)):
     post = crud.get_post(db=db, post_id=post_id)
     return {"data": post}
 
+
 @app.post("/manage/")
 async def create_post(post: schemas.Post, db: Session = Depends(get_db)):
     if not post.submit_date:
