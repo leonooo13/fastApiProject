@@ -4,6 +4,8 @@ import Login from "@/components/Login.vue"
 import Home from "@/components/Home.vue"
 import News from "@/components/News.vue";
 import Manage from "@/components/Manage.vue";
+import New from "@/components/manage/New.vue";
+import Edit from "@/components/manage/Edit.vue";
 import Post from "@/components/Post.vue";
 const router = createRouter({
     history:createWebHistory(),
@@ -38,6 +40,16 @@ const router = createRouter({
             component:Post,
             name: 'Post',
         },
+        {
+            path:'/manage/new',
+            component: New,
+            name:'New',
+        },
+        {
+            path:'/manage/edit/',
+            component: Edit,
+            name:'Edit',
+        }
     ]
 })
 

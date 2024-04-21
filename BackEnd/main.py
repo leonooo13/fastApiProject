@@ -87,4 +87,5 @@ async def create_post(post: schemas.Post, db: Session = Depends(get_db)):
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run("main:app", reload=True)
