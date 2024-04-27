@@ -3,23 +3,30 @@
     <h3>主页展示</h3>
     <div class="article-list">
       <ul>
-        <li v-for="post in data" :key="post.id" class="article-item">
-          <div class="post-info">
-            <div class="title_id">{{ post.id }}</div>
+  
+      <li v-for="post in paginatedData" :key="post.id" class="article-item">
+      <div calss = "post-info">
+        <div class="title_id">{{ post.id }}</div>
             <router-link :to="'/post/' + post.id" class="title-link">
               {{ post.title }}
             </router-link>
             <div class="date">{{ post.date }}</div>
-          </div>
-        </li>
-      </ul>
+      </div>
+      </li>
+    </ul>
     </div>
   </div>
+  <div class="pagination">
+  <button @click="prevPage" :disabled="currentPage === 1">上一页</button>
+  <span>当前页: {{ currentPage }}</span>
+  <button @click="nextPage" :disabled="currentPage === pageCount">下一页</button>
+</div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted ,computed} from 'vue';
 import axios from 'axios';
+import Post from './Post.vue';
 
 interface Post {
   id: number;
@@ -41,6 +48,30 @@ const fetchData = async () => {
 
 // 在组件挂载后立即调用 fetchData 方法
 onMounted(fetchData);
+
+const itemsPerPage = 10;
+const currentPage = ref(1);
+
+const pageCount = computed(() => Math.ceil(data.value.length / itemsPerPage));
+
+const paginatedData = computed(() => {
+  const startIndex = (currentPage.value - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  return data.value.slice(startIndex, endIndex);
+});
+
+const nextPage = () => {
+  if (currentPage.value < pageCount.value) {
+    currentPage.value++;
+  }
+};
+
+const prevPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+  }
+};
+
 </script>
 
 <style scoped>
