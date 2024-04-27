@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue';
   import axios from 'axios';
-  import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
+  import { useRoute } from 'vue-router';
   
   interface Post {
     id: number;

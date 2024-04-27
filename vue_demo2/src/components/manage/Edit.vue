@@ -34,7 +34,7 @@
   
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/posts/');
+      const response = await axios.get(`http://localhost:8000/posts/`);
       data.value = response.data.data;
     } catch (error) {
       console.error('请求数据时出错:', error);
@@ -45,15 +45,36 @@
   onMounted(fetchData);
   
   // 修改文章的函数
-  const editPost = (postId: number) => {
-    // 实现修改文章的逻辑
+  const editPost = async (postId: number) => {
+    try{
+      await axios.put(`http://127.0.0.1:8000/posts/${postId}`)
+    }
+    catch (error){
+      console.error(error)
+    }
   };
   
   // 删除文章的函数
-  const deletePost = (postId: number) => {
+  const message = ref()
+  const deletePost = async(post_id: number) => {
     // 实现删除文章的逻辑
-    console.log(postId)
-  };
+    console.log(post_id)
+    try {
+     const resp = await axios.delete(`http://127.0.0.1:8000/posts/delete/${post_id}`)
+     message.value = resp.data.data
+     console.log(message.value)
+     if( message.value =="delete post success"){
+       alert("删除成功")
+       fetchData();
+     }
+
+    
+    }
+      catch (error) {
+    console.error(error)
+      
+    }
+    };
   </script>
   
   <style scoped>
