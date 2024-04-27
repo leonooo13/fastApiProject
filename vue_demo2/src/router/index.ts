@@ -41,6 +41,11 @@ const router = createRouter({
             name: 'Post',
         },
         {
+            path:'/manage/new/:id',
+            component: New,
+            name:'EditArticle',
+        },
+        {
             path:'/manage/new',
             component: New,
             name:'New',

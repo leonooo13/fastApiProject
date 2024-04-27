@@ -22,6 +22,7 @@
   <script setup lang="ts">
   import { ref, onMounted } from 'vue';
   import axios from 'axios';
+  import router from '@/router';
   
   interface Post {
     id: number;
@@ -47,7 +48,7 @@
   // 修改文章的函数
   const editPost = async (postId: number) => {
     try{
-      await axios.put(`http://127.0.0.1:8000/posts/${postId}`)
+      router.push({ name:'EditArticle',params:{id:postId}});
     }
     catch (error){
       console.error(error)
